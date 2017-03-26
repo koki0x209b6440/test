@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ja">
+<script type="text/javascript"><!--
+var titleindex=1;
+var menustr=["もろもろのきろく"];
+
+function setTitle(title,mtitle)
+{
+  var titlehtmlstr=" ";
+    if(titleindex>1)
+    {
+      titlehtmlstr=titlehtmlstr+'</pre>';
+      titlehtmlstr=titlehtmlstr+'</a></div>';
+    }
+    titlehtmlstr=titlehtmlstr+'<div class="test" id="txt'+titleindex+'"><a name="txt'+titleindex+'">';
+    titleindex=titleindex+1;
+    titlehtmlstr=titlehtmlstr+'<pre>';
+    titlehtmlstr=titlehtmlstr+'<h1>'+title+'</h1>';
+  document.write(titlehtmlstr+'<br>');
+  menustr.push(mtitle);
+}
+// --></script>
+<head><meta charset="UTF-8"><title>もろもろのきろく</title>
+<body><div id="menubar"></div><div class="test" id="txt0"><a name="txt0">
+                            <h1>もろもろのきろく</h1>
+</a></div><pre>
+  自分の雑記やTipsをページにまとめてweb公開.
+  ミニゲーム公開場所としても細々と運営。簡素ですがご容赦ください。(ぜひダウンロードしていってね！)
+    (processingは大体1.5.1か2.0.3の実行環境)
+
+  htmlのコンセプトは「記事を見る時、いちいちリンク押して飛ぶの面倒くさい、一括で見たい。しかし現在位置は分かったり、目次から別項目に飛んだりしたい」(->だからページ右側にjqueryでメニュー設置、本文と被せて表示している所がお気に入り)
+    <a href="https://ddd25276ac1ac44e1a3f321922da87b83f649087-www.googledrive.com/host/0B5wUBmXFZtqBWGRkWTMyWHJfczg/">[home]</a>
+    <a href="../../p/_top/index.html">[top]</a>
+    <a href="../../p/2015/2016.html">[過去のページ(無い)]</a><br>
+</pre>
+
+<!--
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+-->
+
+
+
+
+
+<!--
+ ::::::::      :::     :::        ::::::::
+:+:    :+:   :+: :+:   :+:       :+:    :+:
++:+         +:+   +:+  +:+       +:+
++#+        +#++:++#++: +#+       +#+
++#+        +#+     +#+ +#+       +#+
+#+#    #+# #+#     #+# #+#       #+#    #+#
+ ########  ###     ### ########## ########
+-->
+<script type="text/javascript">
+  setTitle("calculatorTest(processing1.5.1)","calculator");
+</script>
+<img width="300" height="400" src="../../data/2016/0130/calculatorTest.png" alt="代替テキスト">
+
+[srcのダウンロードリンク]
+
+　電卓試作。努力ポイントが必要だったので、式が残るように(関数電卓的というか、式の部分改変して再計算可能)。
+
+<script type="text/javascript">
+  setTitle("CorpsWarV2(processing1.5.1)","CorpsWarV2_koba");
+</script>
+<ul id="slider1">
+  <li><img src="../../data/2016/0528/CorpsWarV2_koba.png"></li>
+  <li><img src="../../data/2015/0102/particleWar.png"></li>
+  <li><img src="../../data/2016/0216/CorpsWar_koba.png"></li>
+</ul>
+　(面倒くさくなかったら、gifアニメも作って貼る)
+
+
+
+
+[srcのダウンロードリンク]
+
+　パーティクルの勉強中に「これを利用すれば簡易の複数vs複数(のためのNPC挙動)が作れるのでは」と思いついて作成。
+
+　複数色の集団Corpsに分かれて三角形Unitがビームbulletを撃ち合う(画像上では黄緑と青)。
+　また、緑色のシールドを貼る事もある。
+　巨大な丸CorpsCoreが撃破されると、Corpsは丸ごと全滅する。
+　タイトルシーンもSceneとして用意した(今は灰色)。クリックすればCorpsWarが始まる。
+
+<script type="text/javascript">
+  setTitle("Color/ImageCatch(processing1.5.1)","ColorCatch");
+</script>
+　<img width="200" height="200" src="../../data/2016/0202/ColorCatch.png" alt="代替テキスト"><img width="250" height="250" src="../../data/2016/0202/ImageCatch.png" alt="代替テキスト">
+[<a href="../../data/2016/0202/ColorCatch.zip" download="ColorCatch.zip">ダウンロード</a>]
+[<a href="../../data/2016/0202/ImageCatch.zip" download="ImageCatch.zip">ダウンロード</a>]
+　調査対象画像のドラッグ&ドロップに対応した、簡易なRGB取得・画像切り取りの試作品。
+
+<script type="text/javascript">
+  setTitle("EmbossTest(processing2.0.3)","EmbossTest");
+</script>
+<img width="400" height="200" src="../../data/2016/0202/EmbossTest2_0_3.png" alt="代替テキスト">
+
+[srcのダウンロードリンク]
+
+　画像映像処理の科目の板書講義で、フィルタ処理に興味を持った。
+　なので自力で実装、エンボスフィルタの試作を例示。
+　(エンボスフィルタの処理内容は、画像をGLAYスケール変換->ネガポジ変換の二種用意->ズラして合成)
+
+
+<script type="text/javascript">
+  setTitle("Timer(processing2.0.3)","Timer");
+</script>
+<img width="300" height="300" src="../../data/2016/0202/KobaTimer.png" alt="代替テキスト">
+
+　研究室内の中間発表などで利用するためにタイマーアプリを自作。
+　以下のような$ではじまるファイルをドラッグアンドロップすることで設定できる。
+　キッチンタイマーではなく、段階的なアラーム連絡。
+<img width="300" height="300" src="../../data/2016/0202/KobaTimer_data_ss.png" alt="代替テキスト">
+
+<script type="text/javascript">
+  setTitle("maus_particle(processing1.5.1)","maus_particle");
+</script>
+<img width="300" height="300" src="../../data/2016/0202/maus_particle.png" alt="代替テキスト">
+[<a href="../../data/2016/0202/maus_particle.zip" download="maus_particle.zip">ダウンロード</a>]
+　パーティクルテスト。構造を整理。
+　持続時間をテクスチャにした。
+
+<script type="text/javascript">
+  setTitle("SpotLightDemo(processing1.5.1)","SpotLightDemo");
+</script>
+<img width="300" height="300" src="../../data/2016/0202/SpotLightDemo.png" alt="代替テキスト">
+[<a href="../../data/2016/0202/SpotLightDemo.zip" download="SpotLightDemo.zip">ダウンロード</a>]
+　元々はprocessingの光源処理の試作。(ss撮影時に消えてしまったが、マウスも光源になっている)
+　それを、sin利用例として少し綺麗な見た目に。
+　球も綺麗なディテールにすれば、攻撃魔法エフェクトなどに応用していけそう。
+
+<script type="text/javascript">
+  setTitle("CarWorldv2","CarWorldv2");
+</script>
+
+<img width="300" height="200" src="../../data/2016/0310/CarWorld1_5_1V2.png" alt="代替テキスト">
+<img width="300" height="200" src="../../data/2016/0310/CarWorld1_5_1V2_2.png" alt="代替テキスト">
+
+　三次元空間の試作。
+　試作詳細としては三点、空間内の移動、視点、空間内へのobject設置。
+　また、こちらはproscene.jarの利用だが、モデリングとその運用も試作した。
+　(画面内に映っている蛍光灯)
+
+　しかし、この辺りのことはunityなら「ひょいっ」でできる。
+　うーん、やはり三次元関連でprocessingで取り組むのは、この辺り(基礎)まででいいかなぁ…
+
+
+
+<script type="text/javascript">
+  setTitle("CollectionTest_koba(processing1.5.1)","CollectionTest_koba");
+</script>
+<img width="300" height="200" src="../../data/2016/0130/CollectionTest_koba.png" alt="代替テキスト">
+
+[srcのダウンロードリンク]
+
+　Processingの試作品。
+　基本コンセプトは「晴れの天気CGと雨の天気CGを混合したり、遷移したい。しかし各々はprocessingらしく楽にsetup-drawで描きたい」
+　そこからHanyouBuffer(中ではsetup-drawで描けて、外ではgetBufferで持って来れる)やその管理容易化のSceneなど派生
+　特に、描画オブジェクトのリストを作って、そこからの描画選択画面自動化とか、色の動的な指定ColorObject(ColorWidget、その別ウインドウ化のHanyouApplet)とか、
+　ウインドウの動的サイズ変更や半透明化や枠消し、
+　あと、別ウインドウからリモコン的に描画選択(画像内左)
+　描画Aから描画Bに移る(その間にトランジションエフェクトの描画Cを挟む)とかも実現できる。
+　描画部品を簡単に混ぜ合わせる、組み合わせる方針から、「遊んだ」に変わった感じ。
+　しかし実際、fpsの問題を除けば、描画を混ぜるのは楽だろう。
+
+　最後に、画像右側PoyonBallは良い出来。processingやライブラリに依存に無いpixelの操作での挙動実現に注力したので、似た動作を別言語で欲しければ、参考にできるはず。
+
+　(但し全体的にスパゲティコード)
+
+
+<!--
+:::    ::: ::::    ::: ::::::::::: ::::::::::: :::   :::
+:+:    :+: :+:+:   :+:     :+:         :+:     :+:   :+:
++:+    +:+ :+:+:+  +:+     +:+         +:+      +:+ +:+
++#+    +:+ +#+ +:+ +#+     +#+         +#+       +#++:
++#+    +#+ +#+  +#+#+#     +#+         +#+        +#+
+#+#    #+# #+#   #+#+#     #+#         #+#        #+#
+ ########  ###    #### ###########     ###        ###
+-->
+<script type="text/javascript">
+  setTitle("Unity制作物","Unity");
+</script>
+
+[ここにss]
+<video controls src="../../data/2015/0411/video.mov" width="320" height="285">
+<object id="player" width="320" height="285" classid="clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6">
+<param name="autoStart" value="false">
+<param name="URL" value="../../data/2015/0411/video.mov">
+</object>
+</video>
+
+[srcのダウンロードリンク]
+
+　TPSの試作。戦闘のみの小規模コード。
+　近年の戦闘システムは「なんで敵も味方も盾持たないんだ」みたいに感じるなと思ったので、盾を持たせた。
+　生存力が高くて面倒くさい。
+
+
+
+<!--
+テンプレ
+
+<script type="text/javascript">
+  setTitle("etc","etc");
+</script>
+　本文
+<img width="300" height="400" src="../../data/2016/0130/calculatorTest.png" alt="代替テキスト">
+
+<video controls src="../../data/2015/0411/video.mov" width="320" height="285">
+<object id="player" width="320" height="285" classid="clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6">
+<param name="autoStart" value="false">
+<param name="URL" value="../../data/2015/0411/video.mov">
+</object>
+</video>
+
+</pre>
+</a></div>
+
+-->
+
+</pre>
+</a></div>
+<!--
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--内部機能(スタイル・ページ構成に近い)-->
+ <!-- jQuery -->
+<script src="../../p/_code/jquery-1.11.2.min.js"></script>
+<link rel="stylesheet"  href="../../p/_code/jquery.mobile-1.0a4.1.min.css" />
+<script type="text/javascript" src="../../p/_code/jquery.mobile-1.0a4.1.min.js"></script>
+<script src="../../p/_code/AnythingSlider/js/jquery.easing.1.2.js"></script>
+<link href="../../p/_code/AnythingSlider/css/anythingslider.css" rel="stylesheet">
+ <script src="../../p/_code/AnythingSlider/js/jquery.anythingslider.min.js"></script>
+ <link href="../../p/_code/AnythingSlider/demos/colorbox/colorbox.css" rel="stylesheet">
+ <script src="../../p/_code/AnythingSlider/demos/colorbox/jquery.colorbox-min.js"></script>
+
+
+<script>
+  $(function(){
+    var scrollBottom;
+    var scrollFlag=0;
+    var p_scrollFlag=-1;
+    var htmlstr="<br>";
+    function getScrollTop(){
+      scrollBottom = $(window).scrollTop() + $(window).height()/2;
+      for(var i=0; i<menustr.length; i++)
+      {
+        if(scrollBottom >= $("#txt"+i).offset().top)  scrollFlag=i;
+      }
+      if( $(window).scrollTop()< $(window).height()/10){scrollFlag=0; }
+      <!--ここからメニュー本文-->
+      if(scrollFlag!=p_scrollFlag)
+      {
+        htmlstr="<br>|　[サイドバー]<br>";
+        for(var i=0; i<menustr.length; i++)
+        {
+          if(scrollFlag==i)htmlstr=htmlstr+'|<a href="#txt'+i+'"><FONT color="red">'+menustr[i]+'<br></FONT></a>';
+          else htmlstr=htmlstr+'|<a href="#txt'+i+'">'+menustr[i]+'<br></a>';
+        }
+        p_scrollFlag=scrollFlag;
+      }
+      $("#menubar").html(htmlstr);
+    }
+
+    $(window).on("load scroll resize", getScrollTop);
+  });
+</script>
+<script>
+
+$(function(){
+ $('#slider1')
+  .anythingSlider({
+   toggleControls : true,
+   theme          : 'metallic',
+   navigationFormatter : function(i, panel){ // add thumbnails as navigation links
+    return '<img src="../../p/_code/AnythingSlider/demos/images/th-slide-' + ['civil-1', 'env-1', 'civil-2', 'env-2'][i - 1] + '.jpg">';
+   }
+  })
+  // target all images inside the current slider
+  // replace with 'img.someclass' to target specific images
+  .find('.panel:not(.cloned) img') // ignore the cloned panels
+   .attr('rel','group')            // add all slider images to a colorbox group
+   .colorbox({
+     width: '90%',
+     height: '90%',
+     href: function(){ return $(this).attr('src'); },
+     // use $(this).attr('title') for specific image captions
+     title: 'Press escape to close',
+     rel: 'group'
+   });
+});
+
+</script>
+
+
+
+</body>
+<!--スタイル設定-->
+<style>
+@font-face {
+	font-family: 'HuiFont29';
+	src:local('MHuiFont29') ,
+		url('../../p/_code/HuiFont29.ttf');
+}
+h1 {
+	font-family: "HuiFont29";
+}
+pre{
+  font-family: "HuiFont29";
+}
+body {
+  font-size: 18px;
+}
+#menubar {
+  position: fixed;
+  font-size: 16px;
+  top: 16px;
+  right: 10px;
+  font-family: "HuiFont29";
+}
+pre {
+    /* Mozilla preタグの＜br＞要らずの本文書きを、右端で折り返すように設定*/
+    white-space: -moz-pre-wrap;
+    /* Opera 4-6 */
+    white-space: -pre-wrap;
+    /* Opera 7 */
+    white-space: -o-pre-wrap;
+    /* CSS3 */
+    white-space: pre-wrap;
+    /* IE 5.5+ */
+    word-wrap: break-word;
+}
+
+#slider1 {
+ width: 400px;
+ height: 300px;
+ list-style: none;
+}
+/* CSS to expand the image to fit inside colorbox */
+#cboxPhoto { width: 100%; height: 100%; margin: 0 !important; }
+/* Change metallic theme defaults to show thumbnails */
+div.anythingControls {
+ bottom: 25px; /* thumbnail images are larger than the original bullets; move it up */
+}
+.anythingSlider-metallic .thumbNav a {
+ background-image: url();
+ height: 30px;
+ width: 30px;
+ border: #000 1px solid;
+ border-radius: 2px;
+ -moz-border-radius: 2px;
+ -webkit-border-radius: 2px;
+ text-indent: 0;
+}
+.anythingSlider-metallic .thumbNav a span {
+ visibility: visible; /* span changed to visibility hidden in v1.7.20 */
+}
+/* border around link (image) to show current panel */
+.anythingSlider-metallic .thumbNav a:hover,
+.anythingSlider-metallic .thumbNav a.cur {
+ border-color: #fff;
+}
+/* reposition the start/stop button */
+.anythingSlider-metallic .start-stop {
+ margin-top: 15px;
+}
+
+</style>
+
+<!--
+使い方や留意点などメモ
+
+ページ本文では、塊(章として分けたい所)ごとにdivタグでidを付けること。txt1やtxt2みたいなidで統一する。
+
+右側の目次は、menubarstrの中身付き宣言のところを増減するだけで良い。
+
+ただし注意点。
+「目次だけスクロール」はできなかった。なので、画面下まで伸びたら後は見えない。(しかも画面サイズ差がある)
+あと、目次と、左側本文の境界線の置き方がわからん。
+特に前者の問題を考えて、日想の記録には向かないだろう。
+但し、何かのTipsメモとしてはQiita風に行えそう。
+-->
+
+</html>

@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ja">
+<script type="text/javascript"><!--
+var titleindex=1;
+var menustr=["もろもろのきろく/15"];
+
+function setTitle(title,mtitle)
+{
+  var titlehtmlstr=" ";
+    if(titleindex>1)
+    {
+      titlehtmlstr=titlehtmlstr+'</pre>';
+      titlehtmlstr=titlehtmlstr+'</a></div>';
+    }
+    titlehtmlstr=titlehtmlstr+'<div class="test" id="txt'+titleindex+'"><a name="txt'+titleindex+'">';
+    titleindex=titleindex+1;
+    titlehtmlstr=titlehtmlstr+'<pre>';
+    titlehtmlstr=titlehtmlstr+'<h1>'+title+'</h1>';
+  document.write(titlehtmlstr+'<br>');
+  menustr.push(mtitle);
+}
+// --></script>
+<head><meta charset="UTF-8"><title>もろもろのきろく</title>
+<body><div id="menubar"></div><div class="test" id="txt0"><a name="txt0">
+                            <h1>もろもろのきろく</h1>
+</a></div><pre>
+　自分の雑記やTipsをページにまとめweb公開.
+　ミニゲーム公開場所としても細々と運営しています。簡素ですがご容赦ください。(ぜひダウンロードしていってね！)
+  (processingは大体1.5.1か2.0.3)
+  <a href="../../p/_top/index.html">[top(人に見せる方の)]</a>
+  <a href="../../p/2016/201607.html">[2016]</a>
+  [2015]<br>
+
+  <div style="margin-left: 2em; text-indent: -2em;">　メモ:
+　CarWorldとWorld3D、及びUnityを踏まえて。
+  3DCGのゲームメイクは設定・調整が大変だと感じた。
+  (Unityのように、一つの3DCGを、世界に配置したりキャラに持たせたりとするのが困難で、フレームレートに響く)。
+  そのため、FPSやTPSのゲームはUnityで試作を取り組む。
+　</div>
+　Test
+  [<a href="../test.zip" download="test.zip">ここ</a>]
+</pre>
+
+<!--
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+-->
+
+
+
+
+<!--
+ ::::::::   ::::::::  :::        :::        ::::::::::
+:+:    :+: :+:    :+: :+:        :+:        :+:
++:+        +:+    +:+ +:+        +:+        +:+
++#+        +#+    +:+ +#+        +#+        +#++:++#
++#+        +#+    +#+ +#+        +#+        +#+
+#+#    #+# #+#    #+# #+#        #+#        #+#
+ ########   ########  ########## ########## ##########
+
+         :::::::: ::::::::::: ::::::::::: ::::::::  ::::    :::
+        :+:    :+:    :+:         :+:    :+:    :+: :+:+:   :+:
+        +:+           +:+         +:+    +:+    +:+ :+:+:+  +:+
+        +#+           +#+         +#+    +#+    +:+ +#+ +:+ +#+
+        +#+           +#+         +#+    +#+    +#+ +#+  +#+#+#
+        #+#    #+#    #+#         #+#    #+#    #+# #+#   #+#+#
+         ########     ###     ########### ########  ###    ####
+-->
+<script type="text/javascript">
+  setTitle("CollectionTest_koba","CollectionTest_koba");
+</script>
+<img width="300" height="200" src="../../data/2016/0130/CollectionTest_koba.png" alt="代替テキスト">
+
+[<a href="../../data/2016/0130/CollectionTest_koba.zip" download="CollectionTest_koba.zip">ダウンロード</a>]
+
+　Processingの試作品。元々はB4時代、玄関投影の試作品だったが、そこから派生。
+　テーマは「晴れの天気と雨の天気を混合したい、しかし各々はprocessingらしく楽にsetup-drawで描きたい」
+　そこからHanyouBuffer(中ではsetup-drawで描けて、外ではgetBufferで持って来れる)やその管理容易化のSceneなど派生
+　特に、描画オブジェクトのリストを作って、そこからの描画選択画面自動化とか、色の動的な指定ColorObject(ColorWidget、その別ウインドウ化のHanyouApplet)とか、
+　ウインドウの動的サイズ変更や半透明化や枠消し、
+　あと、別ウインドウからリモコン的に描画選択
+　描画Aから描画Bに移る(その間にトランジションエフェクトの描画Cを挟む)とかも実現できる。
+　描画部品を簡単に混ぜ合わせる、組み合わせる方針から、「遊んだ」に変わった感じ。
+　しかし実際、fpsの問題を除けば、描画を混ぜるのは楽だろう。
+
+　悲しいことに、動作はprocessing1.6.1で、2.xxやソレ以降では、エラー文無く動かないという状況。少し触った感じ、updatePixelsなどの処理系が変わってクリティカルな感じだ……つらい……
+
+　最後に、PoyoBallは秀逸。他、processingに依存に無い(ライブラリに依存しない)pixelの操作での挙動実現に注目していたので、似た動作を別言語で欲しければ、参考にできるはず。
+
+
+<!--
+ ::::::::      :::     :::        ::::::::
+:+:    :+:   :+: :+:   :+:       :+:    :+:
++:+         +:+   +:+  +:+       +:+
++#+        +#++:++#++: +#+       +#+
++#+        +#+     +#+ +#+       +#+
+#+#    #+# #+#     #+# #+#       #+#    #+#
+ ########  ###     ### ########## ########
+-->
+<script type="text/javascript">
+  setTitle("calculatorTest","calculatorTest");
+</script>
+<img width="300" height="400" src="../../data/2016/0130/calculatorTest.png" alt="代替テキスト">
+
+[<a href="../../data/2016/0130/calculatorTest.zip" download="calculatorTest.zip">ダウンロード</a>]
+
+sample[http://www.openprocessing.org/sketch/121214]
+          [http://www.is.akita-u.ac.jp/~sig/lecture/java/parser.html]
+          [http://www.openprocessing.org/sketch/60582]
+　電卓。式が残る。関数電卓的に括弧とか使える。
+　付けたい機能は二つ。簡単にはcalculator無限のように。
+　1.分数はちゃんと上下に分けて表示
+　2.式の途中部分を改変して再計算させる  <-clear!
+
+<video controls src="../../data/2015/0411/video.mov" width="320" height="285">
+<object id="player" width="320" height="285" classid="clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6">
+<param name="autoStart" value="false">
+<param name="URL" value="../../data/2015/0411/video.mov">
+</object>
+</video>
+
+
+<!--
+ ::::::::      ::: ::::::::::: ::::::::  :::    :::
+:+:    :+:   :+: :+:   :+:    :+:    :+: :+:    :+:
++:+         +:+   +:+  +:+    +:+        +:+    +:+
++#+        +#++:++#++: +#+    +#+        +#++:++#++
++#+        +#+     +#+ +#+    +#+        +#+    +#+
+#+#    #+# #+#     #+# #+#    #+#    #+# #+#    #+#
+ ########  ###     ### ###     ########  ###    ###
+-->
+<script type="text/javascript">
+  setTitle("Color/ImageCatch","Color/ImageCatch");
+</script>
+　<img width="200" height="200" src="../../data/2016/0202/ColorCatch.png" alt="代替テキスト"><img width="200" height="200" src="../../data/2016/0202/ImageCatch.png" alt="代替テキスト">
+[<a href="../../data/2016/0202/ColorCatch.zip" download="ColorCatch.zip">ダウンロード</a>]
+[<a href="../../data/2016/0202/ImageCatch.zip" download="ImageCatch.zip">ダウンロード</a>]
+　ドラッグ&ドロップに対応した、簡易なRGB取得、画像切り取りの試作品。
+　
+
+
+<!--
+ :::::::::       ::::::::::      :::::::::::
+ :+:    :+:      :+:                 :+:
+ +:+    +:+      +:+                 +:+
+ +#+    +:+      :#::+::#            +#+
+ +#+    +#+      +#+                 +#+
+ #+#    #+#      #+#                 #+#
+ #########       ###                 ###
+-->
+<script type="text/javascript">
+  setTitle("dftTest","dftTest");
+</script>
+　[処理に時間がかかるので、画像添付は後日]
+[<a href="../../data/2016/0202/dftTest.zip" download="dftTest.zip">ダウンロード</a>]
+　dftのライブラリ不使用で、処理概観を理解しつつ試作。
+　対象は画像。
+　todo:音楽データを対象としたdftの試作
+
+
+<!--
+:::::::::: ::::    ::::  :::::::::   ::::::::   ::::::::
+:+:        +:+:+: :+:+:+ :+:    :+: :+:    :+: :+:    :+:
++:+        +:+ +:+:+ +:+ +:+    +:+ +:+    +:+ +:+
++#++:++#   +#+  +:+  +#+ +#++:++#+  +#+    +:+ +#++:++#++
++#+        +#+       +#+ +#+    +#+ +#+    +#+        +#+
+#+#        #+#       #+# #+#    #+# #+#    #+# #+#    #+#
+########## ###       ### #########   ########   ########
+-->
+<script type="text/javascript">
+  setTitle("EmbossTest2-0-3","EmbossTest2-0-3");
+</script>
+<img width="400" height="200" src="../../data/2016/0202/EmbossTest2_0_3.png" alt="代替テキスト">
+
+　画像映像処理の科目の板書講義で、フィルタ処理の実装に興味を持ったので、エンボスフィルタを試作。
+　エンボスフィルタの処理内容は、画像をGLAYスケール変換、ネガポジ変換の二種用意して、ズラして合成。
+
+
+<!--
+::::::::::: ::::::::::: ::::    ::::  :::::::::: :::::::::
+    :+:         :+:     +:+:+: :+:+:+ :+:        :+:    :+:
+    +:+         +:+     +:+ +:+:+ +:+ +:+        +:+    +:+
+    +#+         +#+     +#+  +:+  +#+ +#++:++#   +#++:++#:
+    +#+         +#+     +#+       +#+ +#+        +#+    +#+
+    #+#         #+#     #+#       #+# #+#        #+#    #+#
+    ###     ########### ###       ### ########## ###    ###
+-->
+<script type="text/javascript">
+  setTitle("KobaTimer","KobaTimer");
+</script>
+<img width="300" height="300" src="../../data/2016/0202/KobaTimer.png" alt="代替テキスト">
+
+　タイマーアプリを自作。研究室内の中間発表などで利用できないかと、作成。
+　以下のような$ではじまるファイルをドラッグアンドロップすることで設定できる。
+　キッチンタイマーではなく、段階的なアラーム連絡。
+<img width="300" height="300" src="../../data/2016/0202/KobaTimer_data_ss.png" alt="代替テキスト">
+
+　しかし、時間精度に自信をもてず、検証する時間も確保できなかったため、お蔵入り。
+　(CollectionTest_kobaなどの試作のTipsを整理して詰めた様相も持つ)
+
+<!--
+:::::::::     :::     ::::::::: ::::::::::: :::::::::::
+:+:    :+:  :+: :+:   :+:    :+:    :+:         :+:
++:+    +:+ +:+   +:+  +:+    +:+    +:+         +:+
++#++:++#+ +#++:++#++: +#++:++#:     +#+         +#+
++#+       +#+     +#+ +#+    +#+    +#+         +#+
+#+#       #+#     #+# #+#    #+#    #+#         #+#
+###       ###     ### ###    ###    ###     ###########
+                             ::::::::  :::        ::::::::::
+                            :+:    :+: :+:        :+:
+                            +:+        +:+        +:+
+                            +#+        +#+        +#++:++#
+                            +#+        +#+        +#+
+                            #+#    #+# #+#        #+#
+                             ########  ########## ##########
+-->
+<script type="text/javascript">
+  setTitle("maus_particle","maus_particle");
+</script>
+<img width="300" height="300" src="../../data/2016/0202/maus_particle.png" alt="代替テキスト">
+[<a href="../../data/2016/0202/maus_particle.zip" download="maus_particle.zip">ダウンロード</a>]
+　パーティクルテスト。構造を整理。
+　持続時間をテクスチャにした。
+　元々はOpenProcessingで、ランダムなアルファベットをテクスチャにしたパーティクルのテストから、着想を得た。
+
+
+<!--
+      :::        ::::::::::: ::::::::  :::    ::: :::::::::::
+      :+:            :+:    :+:    :+: :+:    :+:     :+:
+      +:+            +:+    +:+        +:+    +:+     +:+
+      +#+            +#+    :#:        +#++:++#++     +#+
+      +#+            +#+    +#+   +#+# +#+    +#+     +#+
+      #+#            #+#    #+#    #+# #+#    #+#     #+#
+      ########## ########### ########  ###    ###     ###
+-->
+<script type="text/javascript">
+  setTitle("SpotLightDemo","SpotLightDemo");
+</script>
+<img width="300" height="300" src="../../data/2016/0202/SpotLightDemo.png" alt="代替テキスト">
+[<a href="../../data/2016/0202/SpotLightDemo.zip" download="SpotLightDemo.zip">ダウンロード</a>]
+　元々はprocessingの光源処理の試作。(ss撮影時に消えてしまったが、マウスも光源になっている)
+　それを、sin利用例として少し綺麗な見た目に。
+　球も綺麗なディテールにすれば、攻撃魔法エフェクトなどに応用していけそう。
+
+
+<!--
+:::::::::      :::      ::::::::  ::::::::::
+:+:    :+:   :+: :+:   :+:    :+: :+:
++:+    +:+  +:+   +:+  +:+        +:+
++#++:++#:  +#++:++#++: +#++:++#++ +#++:++#
++#+    +#+ +#+     +#+        +#+ +#+
+#+#    #+# #+#     #+# #+#    #+# #+#
+###    ### ###     ###  ########  ##########
+-->
+<script type="text/javascript">
+  setTitle("RandomRase","RandomRase");
+</script>
+<img width="400" height="400" src="../../data/2016/0202/RandomRase.png" alt="代替テキスト">
+[<a href="../../data/2016/0202/RandomRase.zip" download="RandomRase.zip">ダウンロード</a>]
+
+　星座占いか何かのテレビをふと思い出して、その挙動を試作。
+　クラス分けする必要もないのではないかという着眼点で取り組んだ。そのため個別の走者は、大げさなクラスではなく、ただの数値の配列管理になっている。
+
+　(※todolistTestも試作したが、途中放棄なので、紹介はしない)
+　(※ここで、gifアニメーションを添付できないかなと少し考える。手間がかからないなら、アニメの方が分かりやすくていい)
+
+<!--
+ ::::::::      :::     :::::::::
+:+:    :+:   :+: :+:   :+:    :+:
++:+         +:+   +:+  +:+    +:+
++#+        +#++:++#++: +#++:++#:
++#+        +#+     +#+ +#+    +#+
+#+#    #+# #+#     #+# #+#    #+#
+ ########  ###     ### ###    ###
+      :::       :::  ::::::::  :::::::::  :::        :::::::::
+      :+:       :+: :+:    :+: :+:    :+: :+:        :+:    :+:
+      +:+       +:+ +:+    +:+ +:+    +:+ +:+        +:+    +:+
+      +#+  +:+  +#+ +#+    +:+ +#++:++#:  +#+        +#+    +:+
+      +#+ +#+#+ +#+ +#+    +#+ +#+    +#+ +#+        +#+    +#+
+       #+#+# #+#+#  #+#    #+# #+#    #+# #+#        #+#    #+#
+        ###   ###    ########  ###    ### ########## #########
+-->
+<script type="text/javascript">
+  setTitle("CarWorld1-5-1","CarWorld1-5-1");
+</script>
+<img width="400" height="300" src="../../data/2016/0203/CarWorld1_5_1.png" alt="代替テキスト">
+[<a href="../../data/2016/0203/_car/CarWorld1_5_1.zip" download="CarWorld1_5_1.zip">ダウンロード</a>]
+
+　三次元空間の試作。ライブラリがあって、その中身を見て必要処理の抜き出し。
+　(ライブラリ名をどこにもメモしていなかった...)
+　三次元空間の高さ情報は三次元配列の数値で扱いやすく。
+
+　また、こちらはproscene.jarの利用だが、モデリングとその運用も試作した。
+　(画面内に映っている蛍光灯)
+
+　　あと地面はただの色づけではなく、他人作品:CG作品2のterrainを参考にしたが、解像度の問題を解決できていない。
+
+<!--
+:::::::::   ::::::::      :::     :::::::::  :::::::::
+:+:    :+: :+:    :+:   :+: :+:   :+:    :+: :+:    :+:
++:+    +:+ +:+    +:+  +:+   +:+  +:+    +:+ +:+    +:+
++#++:++#+  +#+    +:+ +#++:++#++: +#++:++#:  +#+    +:+
++#+    +#+ +#+    +#+ +#+     +#+ +#+    +#+ +#+    +#+
+#+#    #+# #+#    #+# #+#     #+# #+#    #+# #+#    #+#
+#########   ########  ###     ### ###    ### #########
+                 ::::::::      :::     ::::    ::::  ::::::::::
+                :+:    :+:   :+: :+:   +:+:+: :+:+:+ :+:
+                +:+         +:+   +:+  +:+ +:+:+ +:+ +:+
+                :#:        +#++:++#++: +#+  +:+  +#+ +#++:++#
+                +#+   +#+# +#+     +#+ +#+       +#+ +#+
+                #+#    #+# #+#     #+# #+#       #+# #+#
+                 ########  ###     ### ###       ### ##########
+-->
+<script type="text/javascript">
+  setTitle("Boardgame","Boardgame");
+</script>
+<img width="400" height="300" src="../../data/2016/0203/Boardgame.png" alt="代替テキスト">
+[<a href="../../data/2016/0203/Boardgame.zip" download="Boardgame.zip">ダウンロード</a>]
+
+　CollectionTest-kobaを作った後にやるものでもないが、processingのsetup(); draw(); に直書きで、ブロック崩しの試作。
+　タイトル画面(からゲーム画面への遷移)も作った。
+
+
+<!--
+ ::::::::      :::     ::::    ::::  ::::::::::
+:+:    :+:   :+: :+:   +:+:+: :+:+:+ :+:
++:+         +:+   +:+  +:+ +:+:+ +:+ +:+
+:#:        +#++:++#++: +#+  +:+  +#+ +#++:++#
++#+   +#+# +#+     +#+ +#+       +#+ +#+
+#+#    #+# #+#     #+# #+#       #+# #+#
+ ########  ###     ### ###       ### ##########
+                ::::::::::: :::::::::: :::::::: :::::::::::
+                    :+:     :+:       :+:    :+:    :+:
+                    +:+     +:+       +:+           +:+
+                    +#+     +#++:++#  +#++:++#++    +#+
+                    +#+     +#+              +#+    +#+
+                    #+#     #+#       #+#    #+#    #+#
+                    ###     ########## ########     ###
+-->
+<script type="text/javascript">
+  setTitle("gameTest","gameTest");
+</script>
+<img width="500" height="400" src="../../data/2016/0203/gameTest.png" alt="代替テキスト">
+[<a href="../../data/2016/0203/gameTest.zip" download="gameTest.zip">ダウンロード</a>]
+
+　TiltToLive風のゲームの作りかけ。(傾き操作ではなく普通にやりたくて)
+　足りないのは、おおまかに二つ
+　1.特殊な敵
+　2.攻撃武器(概要は作った感が)
+
+　フィールド画面に、うっすらマス目を付けているのも、ちょっとこだわり。
+
+　(ゼルダ風？に試作したmainshot5というのがあるが、B2時代のものなので、現在コンパイルできない。説明は省略する。)
+　(processingでminecraft風に試作したTestというのもあるが、これは古いもので、今起動してみると、カクカクで動かない。説明は省略する)
+
+
+
+<!--
+:::       :::  ::::::::  :::::::::  :::        :::::::::
+:+:       :+: :+:    :+: :+:    :+: :+:        :+:    :+:
++:+       +:+ +:+    +:+ +:+    +:+ +:+        +:+    +:+
++#+  +:+  +#+ +#+    +:+ +#++:++#:  +#+        +#+    +:+
++#+ +#+#+ +#+ +#+    +#+ +#+    +#+ +#+        +#+    +#+
+ #+#+# #+#+#  #+#    #+# #+#    #+# #+#        #+#    #+#
+  ###   ###    ########  ###    ### ########## #########
+                     ::::::::  :::::::::
+                    :+:    :+: :+:    :+:
+                           +:+ +:+    +:+
+                        +#++:  +#+    +:+
+                           +#+ +#+    +#+
+                    #+#    #+# #+#    #+#
+                     ########  #########
+-->
+<script type="text/javascript">
+  setTitle("World3D","World3D");
+</script>
+<img width="500" height="400" src="../../data/2016/0203/World3D.png" alt="代替テキスト">
+[<a href="../../data/2016/0203/World3D.zip" download="World3D.zip">ダウンロード</a>]
+
+
+　※ボールの影がついているのもこだわり(丸影だけどね)。　ボールがバウンドしている挙動の作成は、グラフィック系のHelloWorldだと私は考えている。
+　それを踏まえて、OpenProcessingにあるdragball5は、3次元空間上の箱空間でボールがバウンドする。これを私は、3DCGのHelloWorldに感じた。
+
+　dragball5をコードリーディングして、World3Dは、
+　三次元の雛形として調整。例として、箱を置く機能と、dragball5をこの三次元で稼働させる事を試した。(上のssに、ボールの周りにうっすら立体枠があるのが見えるだろうか...)
+　HanyouTestみたいに簡単に組み合わせる仕様の実現は難しい(描画を移すだけでは駄目なので、x,y,zを色々弄らねば……)が、一応、置けるようにしたという話。
+
+　内部設置したdragball5のは、カメラを動かしても、ちゃんとクリック位置にボールが生成される。
+　しかし「球四つ以上でガクガク」「箱の外に球が生成されない(worldのmouseopとかの辺り？)」
+　などの少々の不具合(読んでない部分)が残っているので、のちのち改善したい。
+
+　とにかく、物を置けた。
+　一つのボールに視点を依存して、自分もボールみたいに跳ねたり。
+　マイクラみたいに一定距離にしか物を置けなかったり、球を射出したり。
+　補正グリッドを実装したり。(プログラムraycastの移植も)
+　いろいろ三次元を謳歌したい。
+
+//　マウスカーソル座標をP3Dで活用するための仕様
+//　dragballは「マウスの移動量」に焦点を当てていた。
+//こちらの仕様は、マウスの座標を使えて嬉しいが、PMatrix3Dの仕様を理解というかprocessingがSCREENとかでデータくれてるから、別言語への転用は難しい。
+//[http://www.c3.club.kyutech.ac.jp/gamewiki/index.php?3D%BA%C2%C9%B8%CA%D1%B4%B9]
+//[http://hideapp.cocolog-nifty.com/blog/2013/05/unity-tips-a5d8.html]
+//[http://cafe.eyln.com/cgi-bin/wiki/wiki.cgi?page=Diary%2F2011-12-2]
+//　スクリーン座標とワールド座標間の変換(変換行列の処理。)、カメラのビューポーと座標空間なども忘れてはならない。
+//processingの元々の機能に頼り切っているから、嫌だなぁ……と思っていたが、DirectXで実装する3Dも、Unityで実装する3Dも、この変換行列云々は搭載してくれているようだ。
+//というか自分が今後触るであろう3DCGのプログラムの方面では、既にサンプルがあるのを確認
+//3D処理には絶対あるとは言えない……。行列取得処理を確実に用意してくれているかは、不安に思うが……)
+//　　ワールド座標
+//　　モデル座標(transform等後のローカルな座標)
+//　　ジオメトリ処理(3D的に座標入力したものを、ディスプレイ画面という二次元画面に表示する、所謂ゲーム的3Dのための処理)
+//の三ワード(+Matrix)を知っていれば、どんな言語上でもこじつけれるかも。
+//先駆者に感謝を。
+
+
+
+<!--
+  :::::::: ::::::::::: :::    ::: :::::::::: :::::::::
+ :+:    :+:    :+:     :+:    :+: :+:        :+:    :+:
+ +:+    +:+    +:+     +:+    +:+ +:+        +:+    +:+
+ +#+    +:+    +#+     +#++:++#++ +#++:++#   +#++:++#:
+ +#+    +#+    +#+     +#+    +#+ +#+        +#+    +#+
+ #+#    #+#    #+#     #+#    #+# #+#        #+#    #+#
+  ########     ###     ###    ### ########## ###    ###
+-->
+<script type="text/javascript">
+  setTitle("他人作品:ミニゲーム類","ミニゲーム類");
+</script>
+　ミニゲーム類。必修科目の最終課題やコンテスト応募作品など。
+　友人や他人の良かった作品(特に自分の糧にできる・したいもの)
+　ミニゲームだけでなく、ソフトとして成立できるレベルのスペクトログラム等も。
+<img width="300" height="200" src="../../data/2015/0102/AdventureGame.png" alt="代替テキスト"><img width="300" height="300" src="../../data/2015/0102/AdventureGame2.png" alt="代替テキスト">
+
+<img width="300" height="200" src="../../data/2015/0102/car.png" alt="代替テキスト"><img width="300" height="200" src="../../data/2015/0102/particleWar.png" alt="代替テキスト">
+
+<img width="200" height="200" src="../../data/2015/0102/raycast.png" alt="代替テキスト"><img width="200" height="200" src="../../data/2015/0102/raycast2.png" alt="代替テキスト">
+
+<img width="300" height="200" src="../../data/2015/0102/spectrogram.png" alt="代替テキスト"><img width="300" height="300" src="../../data/2015/0102/Tetris3D.png" alt="代替テキスト">
+
+
+
+<script type="text/javascript">
+  setTitle("他人作品:サンプル類","サンプル類");
+</script>
+　ライブラリのサンプル類。
+　また、サンプルではないが、ライブラリを上手く活用している作品。
+<img width="250" height="250" src="../../data/2015/0119/Atom.png" alt="代替テキスト"><img width="250" height="250" src="../../data/2015/0119/Blobby_Particles.png" alt="代替テキスト">
+
+<img width="250" height="250" src="../../data/2015/0119/BoxFluidDemo.png" alt="代替テキスト"><img width="250" height="250" src="../../data/2015/0119/Pendulum2.png" alt="代替テキスト">
+
+
+
+<script type="text/javascript">
+  setTitle("他人作品:CG作品","CG作品");
+</script>
+　ミニゲーム類ではないもの。必修科目の最終課題やコンテスト応募作品など。
+　友人や他人の良かった作品(特に自分の糧にできる・したいもの)
+　また、応用のききそうなCGオブジェクト。
+　(サンプルとのカテゴリの分け方がなー。ちょっと判断がなー)
+　(SmokeParticleSystemは、透明度管理の赤丸を、風力的な動作付け)
+<img width="320" height="300" src="../../data/2015/0120/ballhit2.png" alt="代替テキスト"><img width="320" height="300" src="../../data/2015/0120/Explorer.png" alt="代替テキスト">
+
+
+<img width="250" height="200" src="../../data/2015/0120/DanboTest_1_5_1.png" alt="代替テキスト"><img width="250" height="200" src="../../data/2015/0120/SmokeParticleSystem.png" alt="代替テキスト">
+
+
+
+<img width="320" height="300" src="../../data/2015/0120/flaringStar.png" alt="代替テキスト"><img width="320" height="300" src="../../data/2015/0120/terrain.png" alt="代替テキスト">
+
+
+
+<script type="text/javascript">
+  setTitle("他人作品:CG作品2","CG作品2");
+</script>
+　ミニゲーム類ではないもの。特に、ページ遷移などのエフェクト物。
+<img width="250" height="200" src="../../data/2015/0411/coffee.png" alt="代替テキスト"><img width="250" height="200" src="../../data/2015/0411/TailLikeSmolderEffect.png" alt="代替テキスト">
+
+
+
+
+<script type="text/javascript">
+  setTitle("メモ:processing方針等","processing方針メモ");
+</script>
+　二次元は、バッファ管理が上手くできそうだ。足し合わせや、部品としての利用が汎用的にできるだろう。HanyouBuffer
+　しかしP3Dは扱いが難しい。二次元のようにimage関数で指定空間へ描画することは難しいから、バッファで管理が難しく、はたまた位置合わせとなると縮尺の違いを上手く許容できない。
+　CarWorldは頑張ってみたが、FPSもTPSも、Unityが便利だろう。仕方ない。
+
+　processingでは、ボンバーマン系俯瞰視点や、ロックマン系横アクションを手軽に試作してみようと思う。
+
+
+<!--
+ ::::    ::::  ::::::::::: ::::    ::: :::::::::: ::::::::
++:+:+: :+:+:+     :+:     :+:+:   :+: :+:       :+:    :+:
++:+ +:+:+ +:+     +:+     :+:+:+  +:+ +:+       +:+
++#+  +:+  +#+     +#+     +#+ +:+ +#+ +#++:++#  +#+
++#+       +#+     +#+     +#+  +#+#+# +#+       +#+
+#+#       #+#     #+#     #+#   #+#+# #+#       #+#    #+#
+###       ### ########### ###    #### ########## ########
+
+            :::::::::      :::     :::::::::: :::::::::::
+            :+:    :+:   :+: :+:   :+:            :+:
+            +:+    +:+  +:+   +:+  +:+            +:+
+            +#++:++#:  +#++:++#++: :#::+::#       +#+
+            +#+    +#+ +#+     +#+ +#+            +#+
+            #+#    #+# #+#     #+# #+#            #+#
+            ###    ### ###     ### ###            ###
+-->
+<script type="text/javascript">
+  setTitle("minecraftバックアップ","minecraftバックアップ");
+</script>
+
+　minecraftのmod環境が上手く出来たので、(その部分のみの)backupを残す。
+　軽く説明も。
+　1.7.1　……ThaumicTinkerの魔法の小瓶に、鉱石原石を鉱石ブロックに変える(精錬する)ものがある
+　　　　　　これで、自由な溶鉱炉を建設する感じ。
+　　　　　　他、木が(ちゃんとでは無いが)倒れるチェーンソー、火の出るジェットパック、振らないドリル、銃とか魔法とか、
+　　　　　　音も見た目も魅力的な歯車発電、ブロックでは無い配線、
+　　　　　　売買もできる。npcも良いのがいる(ゴーレムもいるし)、
+　　　　　　細かいが、空中では細かく動けるスネークトグル。
+　　　　　　まだまだ整備が足りないが、欲しい機能は全部つけれたかな。
+　[][][]いくつか画像載せる
+
+　1.8　……建設が充実したシムシティ感のあるバニラセーブデータ。
+
+　15w45a……不思議なダンジョン風。
+
+
+ <!--
+  :::::::: ::::::::::: ::::    ::::  :::::::::  :::        ::::::::::
+:+:    :+:    :+:     +:+:+: :+:+:+ :+:    :+: :+:        :+:
++:+           +:+     +:+ +:+:+ +:+ +:+    +:+ +:+        +:+
++#++:++#++    +#+     +#+  +:+  +#+ +#++:++#+  +#+        +#++:++#
+       +#+    +#+     +#+       +#+ +#+        +#+        +#+
+#+#    #+#    #+#     #+#       #+# #+#        #+#        #+#
+ ######## ########### ###       ### ###        ########## ##########
+-->
+<script type="text/javascript">
+  setTitle("Simple_koba","Simple_koba");
+</script>
+
+　CollectionTest-kobaの整理版(暫定)。
+　注意としては、processing1.5.1での起動のみ。
+　ここ以降(Simple_kobaの利用型)は、keyの同時押しにも対応。
+
+
+
+   <!--
+   ::::::::   ::::::::  :::::::::  :::::::::   ::::::::
+  :+:    :+: :+:    :+: :+:    :+: :+:    :+: :+:    :+:
+  +:+        +:+    +:+ +:+    +:+ +:+    +:+ +:+
+  +#+        +#+    +:+ +#++:++#:  +#++:++#+  +#++:++#++
+  +#+        +#+    +#+ +#+    +#+ +#+               +#+
+  #+#    #+# #+#    #+# #+#    #+# #+#        #+#    #+#
+   ########   ########  ###    ### ###         ########
+ -->
+ <script type="text/javascript">
+   setTitle("CorpsWar_koba","CorpsWar_koba");
+ </script>
+
+<img width="400" height="300" src="../../data/2016/0216/CorpsWar_koba.png" alt="代替テキスト">
+
+OpenProcessingのParticleWarを参考に、多種射撃やシールド、戦闘用に牽制的に動く事、自分プレイヤーを実装。
+　(TotalWar路線というよりは、TiltToLive路線(あの一画面で収まり、シンプルデザインで、格好いいというのは、…手が届きたい)  )
+　「一画面で完結している(画面遷移も極力無しに)」「NPCとワチャワチャしている実装にしたい(テイルズ戦闘部分や、GodEaterみたいに、役に立つかどうかはともかくNPCと共闘でうるさい、というのが欲しい)」という目論みがここで一端は実現で、今までの単純系の試作よりはゲームっぽく楽しいので、他の実装も進めていこうかと思う。
+　TotalWarの「斉射」が格好いいから、そんな戦術指揮の実装も検討するか…
+
+　なので、各種実装を備忘録的に記録する。
+　まず、Simple_kobaを基に、バッファ管理等を(自分なりに)容易にして試作している。
+
+　本体はcorps warタブ、CorpsWarのHanyouApplet。
+　corps(駒の群)の配列にインスタンス生成。その中でunits(駒)の配列にインスタンス生成
+　corpsにはxyがあるが、リスポーン位置として使える。また、このCorpクラスでは生存者の把握(表示)や、unitsへの指示(範囲選択->指示)を実装している。
+　なお、指示は今は移動のみ。この指示可能の有無はisPlayerフラグ(範囲選択の枠とunitsの色が同じ)。
+　全体としてはCorpsクラスはcorps.draw内で、units[i].run();の実行、handle();の実行で指揮、
+
+　unitsは駒ひとつひとつの配列。Unitクラスは駒。
+　これは全体処理はdraw();ではなくrun();　接敵の有無をisFreeMoveフラグで管理。
+　また、生きているかどうかisWorkフラグで管理。falseなら描画無し、当たり判定無し、他からもターゲットされない。
+　isPlayer=trueならkeycontrol　尚、corpのisPlayerフラグとは別(自軍を操作出来ないプレイのときとか)
+　移動処理を行う。フリーでは、定期的に方向転換しつつ索敵的移動。
+　次に、射撃等統合してfight();処理。敵をターゲットすると横へ回避行動を取りながら、敵に射撃する。(ターゲットは線でつないでいる)　この判定はisFreeMoveフラグ。
+　そして、draw。本体三角と、当たり判定目安の薄い円、指揮対象を示す濃い円
+
+　bullets…units
+　corpとは別駆動。corps生成と同じタイミングで、とりあえず全部normalのbulletで用意。
+　その後、射撃のときに引き継ぎ、書き換える形でレーザー等を活動させ始める。
+　また、射撃主を保持するので、射撃後硬直などもこの弾丸クラスの方で制御出来る。(ただしキャラ個性を反映するなら、unitの方で反動処理するべきか。もしくは、こちらで反動するが、unitのウェイトなど考慮するとか？)
+　draw();に全体処理があるが、まず移動処理して、その後collision();
+　円や長方形で当たり判定、trueならヒット処理(ダメージ)も行う。そして、貫通なら、isCannnotPeneフラグの指定で、抜け方が変わる。
+　だいたいは、当たると、isWork=falseして、後処理effect();に。爆発エフェクトとか。その時間カウントを経過してから、dead();する。ちゃんとfalseにしているし、modeling();されないが、いちおうx=0;y=0;とかする。
+　ただし、貫通弾isCannotPene=false;だと処理が異なる。effect();は後処理じゃないし複数対象が考えられる。なので、ヒット処理のところでeffectのemitterしよう。
+　ガードのカキンについては、まだ検討中。弾扱いのガードの方でガードエフェクトして消える(一発ガード)ようにするか、ガードは一定時間残るから、弾の方でisShieldフラグでエフェクト変えるか(unitがisShield=シールドなうだから、当たった弾もシールドされなう)。
+
+*/
+
+/*
+　今後は「射撃時に発煙(廃莢)」「ddff皇帝のようなメテオ」「ガンダムvs(特にユニコ)みたいなガードエフェクト」
+　など、個人的なロマンデザインとサウンドの実装
+　「武器が変形展開」「武器部分的に折って、リロードして、再結合」みたいなロマンは簡易に実装できないかしら。
+　(矢印の簡素さを引き継いで、スケルトンな武器な感じ？)
+*/
+
+
+
+<!--
+    :::::::::: ::::::::: ::::::::::: ::::::::::: ::::::::
+    :+:        :+:    :+:    :+:         :+:    :+:    :+:
+    +:+        +:+    +:+    +:+         +:+    +:+    +:+
+    +#++:++#   +#+    +:+    +#+         +#+    +#+    +:+
+    +#+        +#+    +#+    +#+         +#+    +#+    +#+
+    #+#        #+#    #+#    #+#         #+#    #+#    #+#
+    ########## ######### ###########     ###     ########
+-->
+<script type="text/javascript">
+  setTitle("Editor_koba","Editor-koba");
+</script>
+
+　processingでテキストエディタを作る(応用を扱う)試作。
+　特に気になったのは、processingにaddしたTextFieldは日本語入力できない問題[http://d.hatena.ne.jp/seinzumtode/20110909/1315548811]
+　テキストエディタを簡単にいじりたい、と思っていたが、日本語打てないのは困るので少々いじる。
+
+　簡易なテキストエディタ試作のjavaファイルを見つけたので、それをとりあえずprocessing起動にしたのが同封EditorTest.zip
+　そこから、Simple_kobaのHanyouAppletに各種swingをaddできるなと考えて、processingの描画類のPAppletのaddと共存できないか探る。
+
+　既存の変更としては、HanyouAppletのPFrameの継承をFrameからJFrameに変更。
+　他のAppletBなどが変更無しで動くことが確認できた。JFrameでいいかも。
+
+　結論としては、PAppletのものをaddするとテキストエディタとしては動かない。
+　ただ、HanyouAppletにaddすることでテキストエディタ稼働は上手くいったので、エディタ部とPAppletを切り替えて相互にVisibleにするとか考えるか？
+
+　(JFrameとFrameの挙動の違いも気になるので、しばらく別個のプログラムとして弄る。)
+
+/*
+暫定的に切り替え処理実装。但し、メインの無描画ウインドウでkeygetしているし、
+PApplet採用のときはエディタ内容が出てこないし、活用のない切り替え機能にすぎない。改善必須。
+swing利用(コピぺ機能の実装困難)。任意位置の文字入力訂正実装は、calculatorTest_kobaを参考に。
+*/
+
+
+
+<!--
+ ::::::::      :::     :::::::::  :::     :::  ::::::::
+:+:    :+:   :+: :+:   :+:    :+: :+:     :+: :+:    :+:
++:+         +:+   +:+  +:+    +:+ +:+     +:+       +:+
++#+        +#++:++#++: +#++:++#:  +#+     +:+     +#+
++#+        +#+     +#+ +#+    +#+  +#+   +#+    +#+
+#+#    #+# #+#     #+# #+#    #+#   #+#+#+#    #+#
+ ########  ###     ### ###    ###     ###     ##########
+-->
+<script type="text/javascript">
+  setTitle("CarWorldv2","CarWorldv2");
+</script>
+
+<img width="300" height="200" src="../../data/2016/0310/CarWorld1_5_1V2.png" alt="代替テキスト">
+<img width="300" height="200" src="../../data/2016/0310/CarWorld1_5_1V2_2.png" alt="代替テキスト">
+
+
+/*0312
+　基本理念は、「World3Dなんか重いな、そういえば同じ三次元上のCarWorldにballbox配置しても重いのかな？」という感じ。
+　world3dでは見渡すことができるが、こちらでは坂道も設置できる・ぴょんぴょん自由に跳ね回れる　という三次元自由空間なので、せっかくだからprocessingの他の(自作の)3dcgオブジェクトも置けるようにしてみる(CarWorldではmodel試作もしていたし)。
+
+　そして置いてみた結果。原因が判明できないのだが(‘三次元位置クリックが重い？)、こちらはボール数増やしても重くない。
+　変更点や留意点としては、terrain上にbox置くために*scaleFactorを施す(carは内部的に施している)　ボール一個一個も、boxの位置をoffsetにしたxyz数値。toranslate関数だけboxに合わせたわけではないから車とボールの衝突も実装可能。
+　あと、グラビティを見てもらえば一目瞭然だが、軸が違うようだった。これは他の3dcgを置くときも大変かも。
+
+　todo:2d物も透明板に貼り付ける感じで置けるように。
+　　　  そしてカメラ注視を車・特定場所などへ移せるように
+　このtodoをこなすことで「三次元空間上にあるゲームボードでカードで遊びはじめる」みたいなことが可能に。
+　Simple_koba系とはまた別の意味で便利かなと。
+
+　しかしその辺りのことはunityなら「ひょいっ」でできる。うーん、やはり三次元関連でprocessingで取り組むのは、この辺りまででいいかなぁ…
+
+*/
+
+
+<!--
+テンプレ
+
+<div class="test" id="txt3"><a name="txt3">
+<pre>
+<h1>Color/ImageCatch</h1>
+　本文
+<img width="300" height="400" src="../../data/2016/0130/calculatorTest.png" alt="代替テキスト">
+
+<video controls src="../../data/2015/0411/video.mov" width="320" height="285">
+<object id="player" width="320" height="285" classid="clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6">
+<param name="autoStart" value="false">
+<param name="URL" value="../../data/2015/0411/video.mov">
+</object>
+</video>
+
+</pre>
+</a></div>
+
+-->
+
+
+</pre>
+</a></div>
+<!--
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--内部機能(スタイル・ページ構成に近い)-->
+<script src="../../p/_code/jquery-1.11.2.min.js"></script>
+<script>
+  $(function(){
+    var scrollBottom;
+    var scrollFlag=0;
+    var p_scrollFlag=-1;
+    var htmlstr="<br>";
+    function getScrollTop(){
+      scrollBottom = $(window).scrollTop() + $(window).height()/2;
+      for(var i=0; i<menustr.length; i++)
+      {
+        if(scrollBottom >= $("#txt"+i).offset().top)  scrollFlag=i;
+      }
+      if( $(window).scrollTop()< $(window).height()/10){scrollFlag=0; }
+      <!--ここからメニュー本文-->
+      if(scrollFlag!=p_scrollFlag)
+      {
+        htmlstr="<br>|　　[サイドバー]<br>";
+        for(var i=0; i<menustr.length; i++)
+        {
+          if(scrollFlag==i)htmlstr=htmlstr+'|<a href="#txt'+i+'"><FONT color="red">'+menustr[i]+'<br></FONT></a>';
+          else htmlstr=htmlstr+'|<a href="#txt'+i+'">'+menustr[i]+'<br></a>';
+        }
+        p_scrollFlag=scrollFlag;
+      }
+      $("#menubar").html(htmlstr);
+    }
+
+    $(window).on("load scroll resize", getScrollTop);
+  });
+</script>
+
+</body>
+<!--スタイル設定-->
+<style>
+body {
+  font-size: 18px;
+}
+#menubar {
+  position: fixed;
+  font-size: 16px;
+  top: 16px;
+  right: 10px;
+}
+pre {
+    /* Mozilla preタグの＜br＞要らずの本文書きを、右端で折り返すように設定*/
+    white-space: -moz-pre-wrap;
+    /* Opera 4-6 */
+    white-space: -pre-wrap;
+    /* Opera 7 */
+    white-space: -o-pre-wrap;
+    /* CSS3 */
+    white-space: pre-wrap;
+    /* IE 5.5+ */
+    word-wrap: break-word;
+}
+</style>
+
+<!--
+使い方や留意点などメモ
+
+ページ本文では、塊(章として分けたい所)ごとにdivタグでidを付けること。txt1やtxt2みたいなidで統一する。
+
+右側の目次は、menubarstrの中身付き宣言のところを増減するだけで良い。
+
+ただし注意点。
+「目次だけスクロール」はできなかった。なので、画面下まで伸びたら後は見えない。(しかも画面サイズ差がある)
+あと、目次と、左側本文の境界線の置き方がわからん。
+特に前者の問題を考えて、日想の記録には向かないだろう。
+但し、何かのTipsメモとしてはQiita風に行えそう。
+-->
+
+</html>

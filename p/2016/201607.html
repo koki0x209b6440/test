@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja">
+<script type="text/javascript"><!--
+var titleindex=1;
+var menustr=["もろもろのきろく/16"];
+
+function setTitle(title,mtitle)
+{
+  var titlehtmlstr=" ";
+    if(titleindex>1)
+    {
+      titlehtmlstr=titlehtmlstr+'</pre>';
+      titlehtmlstr=titlehtmlstr+'</a></div>';
+    }
+    titlehtmlstr=titlehtmlstr+'<div class="test" id="txt'+titleindex+'"><a name="txt'+titleindex+'">';
+    titleindex=titleindex+1;
+    titlehtmlstr=titlehtmlstr+'<pre>';
+    titlehtmlstr=titlehtmlstr+'<h1>'+title+'</h1>';
+  document.write(titlehtmlstr+'<br>');
+  menustr.push(mtitle);
+}
+// --></script>
+<head><meta charset="UTF-8"><title>もろもろのきろく</title>
+<body><div id="menubar"></div><div class="test" id="txt0"><a name="txt0">
+                            <h1>もろもろのきろく</h1>
+</a></div><pre>
+  自分の雑記やTipsをページにまとめweb公開.
+  ミニゲーム公開場所としても細々と運営しています。簡素ですがご容赦ください。(ぜひダウンロードしていってね！)
+    (processingは大体1.5.1か2.0.3)
+    <a href="../../p/_top/index.html">[top(人に見せる方の)]</a>
+    [2016]
+    <a href="../../p/2015/2015.html">[2015]</a><br>
+    <div style="margin-left: 2em; text-indent: -2em;">　メモ:
+@font-face { font-family: 'HuiFont29';...のところで一括で手書き文字フォントに変更。
+'HuiFont29botu'なんかに変えればサクッと元に戻せる。
+  　</div>
+  　Test
+    [<a href="../test.zip" download="test.zip">ここ</a>]
+</pre>
+
+<!--
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+-->
+
+
+
+
+<!--
+ ::::::::      :::     :::        ::::::::
+:+:    :+:   :+: :+:   :+:       :+:    :+:
++:+         +:+   +:+  +:+       +:+
++#+        +#++:++#++: +#+       +#+
++#+        +#+     +#+ +#+       +#+
+#+#    #+# #+#     #+# #+#       #+#    #+#
+ ########  ###     ### ########## ########
+-->
+<script type="text/javascript">
+  setTitle("calculatorTest","calculatorTest");
+</script>
+<img width="300" height="400" src="../../data/2016/0130/calculatorTest.png" alt="代替テキスト">
+
+[ダウンロードリンク](※上画像。比率保持したまま学大縮小ってできないのかな？)
+
+sample[http://www.openprocessing.org/sketch/121214]
+          [http://www.is.akita-u.ac.jp/~sig/lecture/java/parser.html]
+          [http://www.openprocessing.org/sketch/60582]
+　電卓。式が残る。関数電卓的に括弧とか使える。
+　付けたい機能は二つ。簡単にはcalculator無限のように。
+　1.分数はちゃんと上下に分けて表示
+　2.式の途中部分を改変して再計算させる  <-clear!
+
+<video controls src="../../data/2015/0411/video.mov" width="320" height="285">
+<object id="player" width="320" height="285" classid="clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6">
+<param name="autoStart" value="false">
+<param name="URL" value="../../data/2015/0411/video.mov">
+</object>
+</video>
+
+
+ <!--
+  ::::::::   ::::::::  :::::::::  :::::::::   ::::::::
+:+:    :+: :+:    :+: :+:    :+: :+:    :+: :+:    :+:
++:+        +:+    +:+ +:+    +:+ +:+    +:+ +:+
++#+        +#+    +:+ +#++:++#:  +#++:++#+  +#++:++#++
++#+        +#+    +#+ +#+    +#+ +#+               +#+
+#+#    #+# #+#    #+# #+#    #+# #+#        #+#    #+#
+ ########   ########  ###    ### ###         ######## -->
+<script type="text/javascript">
+  setTitle("CorpsWarV2(processing1.5.1)","CorpsWarV2_koba");
+</script>
+<img width="400" height="200" src="../../data/2016/0528/CorpsWarV2_koba.png" alt="代替テキスト">
+　CorpsWar_kobaに少しだけゲーム性をもたせたCorpsWarV2_koba
+　各Corpに拠点CorpCoreを用意し、これが撃破されるとCorpは全滅する。
+　タイトルシーン(今は灰色)も用意した。
+　リスポーンとかも欲しかっただろうか。
+
+
+<!--
+:::    ::: ::::    ::: ::::::::::: ::::::::::: :::   :::
+:+:    :+: :+:+:   :+:     :+:         :+:     :+:   :+:
++:+    +:+ :+:+:+  +:+     +:+         +:+      +:+ +:+
++#+    +:+ +#+ +:+ +#+     +#+         +#+       +#++:
++#+    +#+ +#+  +#+#+#     +#+         +#+        +#+
+#+#    #+# #+#   #+#+#     #+#         #+#        #+#
+ ########  ###    #### ###########     ###        ###
+-->
+<script type="text/javascript">
+  setTitle("Unityメモ","Unity0621");
+</script>
+　再生ボタン押しても動かなかったり動く物もあったり、二台のうちの片方のmacでは動くとか、面倒が起きていましたが、一応落ち着いたのでメモ。
+　TPSは次のガンネクcwcの立ち位置(やっとか)。敵味方入り乱れ盾構え剣振り間接攻撃して回避ステップできる。
+　　カービィに対応させて可愛くしたいな。モーション調整とかそもそも割り当てるのがわからないなー。魔法もヒュージミサイルに置き換えよう。ガードエフェクト付けよう。(敵味方に移動ルートも設定できサンドバックがあるので陣取り合戦が作れそう。新たにリスポーンと時間制限とスコア表示が欲しいが)
+　FPSはグレランもライフルもピストルも良い近接もある、敵なら一応いる、破壊物も用意できそう。
+　　しかしアイデアが無いな...。完成度高いサンプルが見つかれば(それこそチーム戦できれば)、そっちに流れるかも。
+　ターン制の。
+　FEかな...。ゲームボーイウォーみたいに生産もあれば。更に3チーム目が置ければ。
+
+　[ここにss][][]
+
+(http://kitposition.hatenablog.com/entry/2016/02/07/223156)
+　「ユニティちゃんにオリジナルのモーションで動いてもらう」
+　キャラクターを動かすといえば「Mecanim」
+　　AnimationController（略称Animator）の構造、いわゆるステートマシン
+　　既に存在するモーションを組み合わせ、制御するシステム
+1.特定の条件によるモーション間の遷移
+　　　例）Bボタンを押すと走る、Xボタンを押すと剣を振る
+2.複数のモーションの組み合わせ・ブレンド
+　　　例）AボタンとXボタンを押すとジャンプした状態で剣を振る
+3.部位によって異なるモーションの適用
+　　　例）下半身は走った状態で、上半身は手を振ったりうなだれたりする
+　Unity上では新しいモーションを作ることができないのか？
+　　個々のモーション部品（AnimationClip）自体を作成・編集するアニメーションウインドウ
+　　　しかし人間型はかなり困難　立方体を飛び回らせるのは強い　
+　　(モーション読み込み　Blender,Maya,MMD)
+　　Skeleアセット：FBXフォーマット　モーションとリギング（骨組みづくり）
+　　　(http://megumisoft.hatenablog.com/entry/2015/08/02/224008)
+　　　モデルのコンポのSkinnedMeshRendererにStartEditボタン追加
+　　　　Humanoid型のモデルは直接編集できません。（Unityの仕様上無理っぽい）
+　　　　一旦LegacyかGeneric型のモデルに変えてからアニメーションをつくり。
+　　　　「メニュー」「Skele」「DAE Exporter」
+　　　　FKモード：ジョイントを一部一部選択して。
+　　　　IKモード：手の指を動かす。ジョイントは動きを計算して自動で。
+
+<!--
+::::    ::: ::::::::::: ::::::::   ::::::::
+:+:+:   :+:     :+:    :+:    :+: :+:    :+:
+:+:+:+  +:+     +:+    +:+        +:+    +:+
++#+ +:+ +#+     +#+    +#+        +#+    +:+
++#+  +#+#+#     +#+    +#+        +#+    +#+
+#+#   #+#+#     #+#    #+#    #+# #+#    #+#
+###    #### ########### ########   ########
+           ::::    ::: ::::::::::: ::::::::   ::::::::
+           :+:+:   :+:     :+:    :+:    :+: :+:    :+:
+           :+:+:+  +:+     +:+    +:+        +:+    +:+
+           +#+ +:+ +#+     +#+    +#+        +#+    +:+
+           +#+  +#+#+#     +#+    +#+        +#+    +#+
+           #+#   #+#+#     #+#    #+#    #+# #+#    #+#
+           ###    #### ########### ########   ########
+-->
+<script type="text/javascript">
+  setTitle("ニコニコ動画投稿を試みた","ニコニコ");
+</script>
+　あ、小説家になろう投稿も試しました。　後は、カービィなぞるくらいは絵も挑戦しないとな...。
+　マイクラ動画の投稿をと構想しつつ、ゆっくり実況もmacで付けれるな(音声データ生成して編集画面に貼り付けるから、字幕は無し妥協だが)と確認していたが、ニコニコ動画一般会員は40MB制限がある。
+　この制限は、試し投稿のソーマ30分は630MBだったかで、麒麟ちゃん5分ですら120MBで、psp動画変換だと麒麟ちゃんがなんとか38MB。自分のmac環境じゃゲームプレイ動画を編集して投稿は難しいかも(winでaviutilとかなら)
+　ニコニコ動画のアップロードサイズ変更には時々注目しておく
+
+　->解決、ツンデレンコ(まだ麒麟ちゃんだけだが、120MBから23MBに。しかし音ずれが？)
+　　しかしソーマは映像エンコ失敗。600MB越が駄目か、他の動画ならいけるか、他の設定ならいけるか、まだまだ試してみないと。
+　　音付き録画でマイクラ撮影、つんでれんこ変換は成功。まあいいか。
+　　(あ、編集はしていない)
+
+<script type="text/javascript">
+  setTitle("processingからunityへ方針転換","processing方針2");
+</script>
+　前に書いた方針の簡潔版。直情版。
+　最初はprocessingで3D空間を歩き回ったり物を設置したり、ぽよんとした動きを作っていましたが、ゲームらしくする・マップにギミックを配置していく事が非常に手間だったために、ギミックを楽に配置できるunityに手を出した。
+　[][][]
+
+
+<script type="text/javascript">
+  setTitle("小説関連","小説関連");
+</script>
+　木こりを鍛錬、玩具遊戯を板、高校覇王生活をなろうに。
+　9〜10月まではこれで。
+
+
+　次はどうするか。戦闘は練習したとして。次はキャラ付け(愛らしさ)が全然……武姫や恋する天下無双少女を参考にすべき。
+　やっぱり次は幼女転生、iphoneでもバベルを？（でも三作目……なら幼女転生を両用で）[読者にも作者にも軽い、会話文を主とした、可愛らしいやり取りを楽しむ作品の練習。あと、おっさん幼女と純粋幼女学徒たちがやり取りするという背徳感]
+　魔法　丁寧でゆったりとした日常生活の演出を練習。
+　かもかわ　転生と同じだがネタ狙う、でもできればアンハピみたいな。
+　　　この三作はぼちぼち切り上げねばならない？
+　[][][]
+
+
+<script type="text/javascript">
+  setTitle("小説関連2","小説関連2+winmac");
+</script>
+　けんせいてんせいを投稿する数日前。
+　いろいろ雑記書く。それにしても4月〜8月(学校終わった)とは...いやもう、前向きに。上手く復帰できることを祈るのみだ。上手くLsim応用に繋いで、あと、趣味のことも確立。
+
+　iphoneでの執筆は、結構良いが、基本方針(pcを日常の一部に)と食い違うので。
+　あとlatexは、けんせいてんせいで、段落分けなどそのまま適用を設定できた。
+
+　windowspcからの脱却。powerdirectorの代わりにFilmora動画編集.app。しかし動画複数は結局テンプレ系しかできない。自由度はfinalcutに劣る。もう少し探すべき。
+　そして動画変換は、スーパー昆布winのをvmで。変換先をデスクトップにすればいける。(winのシームレス設定が大事？)
+
+　あと、日曜研究がどんどんずれていっている。が、まあ、通信まで一気に全て試しに行こう。石原さんと会うのは...無理だろうか...。(先生へメール送った明後日？あとからは、lineちゃんとやろう)
+
+　unity。とりあえずカービィは諦めて何かMMD適用して、killzoneのbot戦楽しんでいるようなミニゲームサイズの完成を求めていこうとしている。が、イマイチ。他のasset二手を出そうとは思えないが……。
+
+　最後に、そもそもこのhtmlについて。せっかく安定してgoogledriveで公開できているんだから、人に見せられるページをそろそろ用意しようか。
+　(googledriveをpc両方で適用できたら、予備の方のpcはそろそろ寝かせよう)
+
+
+<script type="text/javascript">
+  setTitle("動画投稿10月","動画投稿10月_全部失敗");
+</script>
+
+　Liko姪モード、縦向、この美、の三つを投稿しようとしたが、
+　この美は約120MB(psp用)->約500MBに膨れ上がる、
+　後二つは変換したのにフレームレートが上限越え。
+　家メインの旧macではツンデレンコが文字化けするのも気になるし、うーん、マイクラと浮こう成功した時と何か違うだろうか。
+　(ニコニコ動画の方は仕様変わって、ツンデレンコもアプデされているが)
+
+　諦めず試す方が良かったかもだが、まあいいやって。
+　todo執筆でpc作業ノリ+Lsim
+　(愚痴、このtodoで秋学期一ヶ月過ぎそうなんだぜ……？)
+
+　->1029追記:旧ニコニコ動画用の変換ならいけた。自分のIDはまだ対象外だったか……
+
+　後このhtmlも、googledrive公開できたようで、最近は繋がらない。
+
+
+
+<script type="text/javascript">
+  setTitle("メモ01","メモ01");
+</script>
+
+随分と長引いてしまった。
+しかし来週を過ぎることができれば、チャレンジは二月だろうか
+(日曜を狙いたいのに、ちょっと狙いづらそうなのが困る)
+
+　小説は選択肢が落ち着いた。ネタ帳っぽい一覧も一応置いといたが。
+　剣、魔、悪役聖女の三つ。
+　どれをiphoneで、とかは考えず、剣を最優先で片付けてから後二つ。
+　(その先も一応王女、魔法少女、パパ辺りが選択肢に)
+　案外書いた本数が少なくてつらいか。
+　でも平和やギャフンのバイブルが見つかって、非常に幸い。
+　洗脳艦隊や万能無敵や触手生物や異世界エースを発掘できて望外の幸福。
+　だが最も一番は呪い一部、奴隷ハーレム、本好き学校か。
+
+　絵を全然なぞっていなくてつらい。
+　動画も全然やってない。
+
+　あと、作業動画のお供もだいたい定まって、良い。
+　pspnとデレとbf1と人間か。
+　完全にオフラインにできないのは精神的問題か。
+
+　遊戯王の充実でシャドバ無しに。エイラ消えたら悲しすぎるし。
+　あと固定シチュは本当に有用そう。
+
+　pcpspが充実。遊戯王がちょっぴり残念だが。
+　ロード時間長いのに内容はパリィ、みたいな、起動ハードル高かったものを移せてよかった。
+　反面、psp(go)がガンダムカード機みたいになって、vitaのガンダムちょっと好きだし、依存度が低くなりがち。
+　解決は、読書を重要視すべきなんだ。
+　ながらゲームの休憩も。
+
+
+
+<!--
+テンプレ
+
+<script type="text/javascript">
+  setTitle("etc","etc");
+</script>
+　本文
+<img width="300" height="400" src="../../data/2016/0130/calculatorTest.png" alt="代替テキスト">
+
+<video controls src="../../data/2015/0411/video.mov" width="320" height="285">
+<object id="player" width="320" height="285" classid="clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6">
+<param name="autoStart" value="false">
+<param name="URL" value="../../data/2015/0411/video.mov">
+</object>
+</video>
+
+</pre>
+</a></div>
+
+-->
+
+</pre>
+</a></div>
+<!--
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+0xffffffff 0xffffffff 0xffffffff 0xffffffff 0xffffffff
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--内部機能(スタイル・ページ構成に近い)-->
+<script src="../../p/_code/jquery-1.11.2.min.js"></script>
+<script>
+  $(function(){
+    var scrollBottom;
+    var scrollFlag=0;
+    var p_scrollFlag=-1;
+    var htmlstr="<br>";
+    function getScrollTop(){
+      scrollBottom = $(window).scrollTop() + $(window).height()/2;
+      for(var i=0; i<menustr.length; i++)
+      {
+        if(scrollBottom >= $("#txt"+i).offset().top)  scrollFlag=i;
+      }
+      if( $(window).scrollTop()< $(window).height()/10){scrollFlag=0; }
+      <!--ここからメニュー本文-->
+      if(scrollFlag!=p_scrollFlag)
+      {
+        htmlstr="<br>|　[サイドバー]<br>";
+        for(var i=0; i<menustr.length; i++)
+        {
+          if(scrollFlag==i)htmlstr=htmlstr+'|<a href="#txt'+i+'"><FONT color="red">'+menustr[i]+'<br></FONT></a>';
+          else htmlstr=htmlstr+'|<a href="#txt'+i+'">'+menustr[i]+'<br></a>';
+        }
+        p_scrollFlag=scrollFlag;
+      }
+      $("#menubar").html(htmlstr);
+    }
+
+    $(window).on("load scroll resize", getScrollTop);
+  });
+</script>
+
+</body>
+<!--スタイル設定-->
+<style>
+@font-face {
+	font-family: 'HuiFont29';
+	src:local('MHuiFont29') ,
+		url('../../p/_code/HuiFont29.ttf');
+}
+h1 {
+	font-family: "HuiFont29";
+}
+pre{
+  font-family: "HuiFont29";
+}
+body {
+  font-size: 18px;
+}
+#menubar {
+  position: fixed;
+  font-size: 16px;
+  top: 16px;
+  right: 10px;
+  font-family: "HuiFont29";
+}
+pre {
+    /* Mozilla preタグの＜br＞要らずの本文書きを、右端で折り返すように設定*/
+    white-space: -moz-pre-wrap;
+    /* Opera 4-6 */
+    white-space: -pre-wrap;
+    /* Opera 7 */
+    white-space: -o-pre-wrap;
+    /* CSS3 */
+    white-space: pre-wrap;
+    /* IE 5.5+ */
+    word-wrap: break-word;
+}
+</style>
+
+<!--
+使い方や留意点などメモ
+
+ページ本文では、塊(章として分けたい所)ごとにdivタグでidを付けること。txt1やtxt2みたいなidで統一する。
+
+右側の目次は、menubarstrの中身付き宣言のところを増減するだけで良い。
+
+ただし注意点。
+「目次だけスクロール」はできなかった。なので、画面下まで伸びたら後は見えない。(しかも画面サイズ差がある)
+あと、目次と、左側本文の境界線の置き方がわからん。
+特に前者の問題を考えて、日想の記録には向かないだろう。
+但し、何かのTipsメモとしてはQiita風に行えそう。
+-->
+
+</html>
