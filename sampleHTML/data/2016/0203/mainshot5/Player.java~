@@ -1,0 +1,172 @@
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Rectangle;
+
+import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.ImageIcon;
+
+
+/*
+ * プレイヤー関連をここへ。MainPanelクラスのキー受付ルーチンなんかと関連が深く、Hitルーチン（移動した場合にマップのオブジェクトとぶつかるかシミュレーションする）の判別を経てから移動を行う仕組み。Hitルーチンがtrueのとき
+ * 
+ *
+ *  
+ */
+public class Player {
+    // 方向定数
+    private static final int LEFT = 0;
+    private static final int RIGHT = 1;
+    private static final int UP = 2;
+    private static final int DOWN = 3;
+    // 移動スピード
+    private static final int SPEED = 3;
+
+    // プレイヤーの位置（x座標）
+    private int x;
+    // プレイヤーの位置（y座標）
+    private int y;
+    // プレイヤーの幅
+    private int width=0;
+    // プレイヤーの高さ
+    private int height=0;
+    // プレイヤーの画像
+    private Image image;
+
+    // メインパネルへの参照
+    private MainPanel panel;
+
+    public Player(int x, int y, MainPanel panel) {
+        this.x = x;
+        this.y = y;
+        this.panel = panel;
+
+        // イメージをロード
+        loadImage();
+    }
+
+    /**
+     * プレイヤーを移動する
+     * 
+     * @param dir 移動方向
+     */
+    public void move(int dir) {
+	int newX=x;
+	int newY=y;
+        if (dir == LEFT) {
+            newX-=SPEED;
+        } else if (dir == RIGHT) {
+            newX+=SPEED;
+        }
+	if(dir==UP){
+	    newY-=SPEED;
+	}else if(dir==DOWN){
+	    newY+=SPEED;
+	}
+	
+	if(Hit(newX,newY)==false){
+	    x=newX;
+	    y=newY;
+	}
+
+    }
+
+    private boolean Hit(int newX, int newY){
+	for(int i=0; i<MainPanel.ROW; i++){//対マップ
+	    for(int j=0; j<MainPanel.COL; j++){
+		if(MainPanel.map[i][j]==1)
+		    if(  ( j*MainPanel.CS)-width <newX&&newX< ( (j+1)*MainPanel.CS)  )
+			if(  ( i*MainPanel.CS)-height <newY&&newY<  ( (i+1)*MainPanel.CS)  )
+			    return true;
+	    }
+	}
+	
+	return false;
+    }
+
+    /**
+     * プレイヤーとビームの衝突を判定する
+     * 
+     * @param beam 衝突しているか調べるビームオブジェクト
+     * @return 衝突していたらtrueを返す
+     */
+    public boolean collideWith(Beam beam) {
+        // プレイヤーの矩形を求める
+        Rectangle rectPlayer = new Rectangle(x, y, width, height);
+        // ビームの矩形を求める
+        Point pos = beam.getPos();
+        Rectangle rectBeam = new Rectangle(pos.x, pos.y, 
+                beam.getWidth(), beam.getHeight());
+
+        // 矩形同士が重なっているか調べる
+        // 重なっていたら衝突している
+        return rectPlayer.intersects(rectBeam);
+    }
+
+    /**
+     * プレイヤーを描画する
+     * 
+     * @param g 描画オブジェクト
+     */
+    public void draw(Graphics g) {
+        g.drawImage(image, x, y, null);
+    }
+
+    /**
+     * プレイヤーの位置を返す
+     * 
+     * @return プレイヤーの位置座標
+     */
+    public Point getPos() {
+        return new Point(x, y);
+    }
+    public Point getPosInMap() {
+	int i,j;
+	for(i=0; i<MainPanel.ROW; i++){
+	    for(j=0; j<MainPanel.COL; j++){
+		if(MainPanel.map[i][j]==0)
+		    if(  (j*MainPanel.CS)-width <x&&x< ( (j+1)*MainPanel.CS) )
+			if(  (i*MainPanel.CS)-height <y&&y<  ( (i+1)*MainPanel.CS) )
+			     return new Point(i,j);
+
+	    }
+	}
+	return new Point(0,0);
+    }
+
+    /**
+     * プレイヤーの幅を返す
+     * 
+     * @param width プレイヤーの幅
+     */
+    public int getWidth() {
+        return width;
+    }
+
+    /**
+     * プレイヤーの高さを返す
+     * 
+     * @return height プレイヤーの高さ
+     */
+    public int getHeight() {
+        return height;
+    }
+
+    /**
+     * イメージをロードする
+     *  
+     */
+    private void loadImage() {
+        // プレイヤーのイメージを読み込む
+        // ImageIconを使うとMediaTrackerを使わなくてすむ
+        ImageIcon icon = new ImageIcon(getClass().getResource(
+                "image/player.gif"));
+        image = icon.getImage();
+
+        // 幅と高さをセット
+        width = image.getWidth(panel);
+        height = image.getHeight(panel);
+    }
+}

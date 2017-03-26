@@ -1,0 +1,48 @@
+newmtl acmat_0
+Kd 0.752941 0.752941 0.752941
+Ka 0 0 0
+Ks 0 0 0
+Ns 25.6
+Tr 0
+newmtl acmat_1
+Kd 0.266667 0.266667 0.266667
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+newmtl acmat_2
+Kd 0.423529 0.454902 0.47451
+Ka 0 0 0
+Ks 0 0 0
+Ns 25.6
+Tr 0
+newmtl acmat_3
+Kd 0.752941 0.752941 0.752941
+Ka 0 0 0
+Ks 0 0 0
+Ns 25.6
+Tr 0
+newmtl acmat_4
+Kd 0.752941 0.752941 0.752941
+Ka 0 0 0
+Ks 0 0 0
+Ns 25.6
+Tr 0
+newmtl acmat_5
+Kd 0.752941 0.752941 0.752941
+Ka 0 0 0
+Ks 0 0 0
+Ns 25.6
+Tr 0
+newmtl acmat_6
+Kd 0.752941 0.752941 0.752941
+Ka 0 0 0
+Ks 0 0 0
+Ns 25.6
+Tr 0
+newmtl acmat_7
+Kd 0.627451 0.25098 0.25098
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0

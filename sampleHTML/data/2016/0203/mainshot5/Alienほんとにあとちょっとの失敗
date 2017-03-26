@@ -1,0 +1,287 @@
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Rectangle;
+
+import javax.swing.ImageIcon;
+
+/*
+ * Created on 2005/03/09
+ *
+ */
+
+/**
+ * エイリアンクラス
+ * 
+ * @author mori
+ *  
+ */
+public class Alien {
+
+    // エイリアンの墓（画面に表示されない場所）
+    private static final Point TOMB = new Point(-20, -100);
+
+    // 移動スピード
+    private int speed;
+    // エイリアンの位置（x座標）
+    private int x;
+    // エイリアンの位置（y座標）
+    private int y;
+    private double vx, vy;
+    private int step=0;
+    private int to_i;
+    private int to_j;
+
+    private static final int FINDING  =0;
+    private static final int SNEAKINGx=1;
+    private static final int SNEAKINGy=2;
+    private static final int ObjMISSx =3;
+    private static final int ObjMISSy =4;
+    private int pattern=FINDING;
+    // エイリアンの幅
+    private int width=0;
+    // エイリアンの高さ
+    private int height=0;
+    // エイリアンの画像
+    private Image image;
+
+    // エイリアンの移動範囲
+    private int left;
+    private int right;
+
+    // エイリアンが生きてるかどうか
+    private boolean isAlive;
+
+    // メインパネルへの参照
+    private MainPanel panel;
+
+    public Alien(int x, int y, int speed, MainPanel panel) {
+        this.x = x;
+        this.y = y;
+        this.speed = speed;
+        this.panel = panel;
+        isAlive = true;
+        // イメージをロード
+        loadImage();
+    }
+
+    /**
+     * エイリアンを移動する
+     *  
+     */
+    public void move(Player player) {
+	Point now=getPosInMap();
+	Point targetdir=lockon(player);
+	int newX=x+targetdir.x*speed;//移動先に物あるなら、移動しないためのもの
+	int newY=y+targetdir.y*speed;//
+	Point newpoint=new Point(newX,newY);
+
+	if(pattern!=FINDING){
+	    masumove(now.x,now.y,to_i,to_j);
+	    return;//いちおうつけとく
+		}
+	if(!isHitInMap(newpoint) && pattern==FINDING){//敵の方へ。あまり出番無し?
+	    x+=targetdir.x*speed;
+	    y+=targetdir.y*speed;
+	}
+	else {//このままの行き先だと障害物にぶつかっちゃう。なら、抜け道のどれかに方向転換
+	    if(panel.map[now.x+targetdir.x][now.y]==0){//プレイヤーがいる方(上下)
+		//y+=targetdir.x*speed;
+		pattern=SNEAKINGy;
+		to_i=now.x+targetdir.x;
+		to_j=now.y;
+	    }
+	    else if(panel.map[now.x][now.y+targetdir.y]==0){//プレイヤーがいる方(左右)
+		//x+=targetdir.y*speed;
+		pattern=SNEAKINGx;
+		to_i=now.x;
+		to_j=now.y+targetdir.y;
+	    }
+	    else if(panel.map[now.x-targetdir.x][now.y]==0){//ただの障害物回避(上下)
+		//y+=(-targetdir.x)*speed;
+		pattern=ObjMISSy;
+		to_i=now.x-targetdir.x;
+		to_j=now.y;
+	    }
+	    else if(panel.map[now.x][now.y-targetdir.y]==0){//ただの障害物回避(左右)
+		//x+=(-targetdir.y)*speed;
+		pattern=ObjMISSx;
+		to_i=now.x;
+		to_j=now.y-targetdir.y;
+	    }
+	}
+    }
+
+    private void masumove(int f_i,int f_j,int t_i,int t_j){
+	int dirx,diry;
+	if(step==0){
+	    if(x== f_j*MainPanel.CS )dirx=0;
+	    else if(x< f_j*MainPanel.CS )dirx=-1;
+	    else dirx=1;
+
+	    if(y== f_i*MainPanel.CS )diry=0;
+	    else if(y< f_i*MainPanel.CS )diry=-1;
+	    else diry=1;
+
+	    x+=dirx*speed;
+	    y+=diry*speed;
+	    if(dirx==0 && diry==0)step=1;
+	}
+	if(step==1){
+	    y+=(t_i - f_i)*speed;
+	    x+=(t_j - f_j)*speed;
+	    Point now=getPosInMap();
+	    if(now.x==t_i && now.y==t_j)step=2;
+	}
+	if(step==2){
+	    step=0;
+	    pattern=FINDING;
+	}
+    }
+
+    public Point lockon(Player player) {
+	Point target=player.getPos();
+	int dirx,diry;
+	if(x==target.x) dirx=0;
+	else if(x<target.x)dirx=1;
+	else dirx=-1;
+	if(y==target.y)diry=0;
+	else if(y<target.y)diry=1;
+	else diry=-1;
+	
+	return new Point(dirx,diry);
+    }
+    /*
+     * エイリアンと弾の衝突を判定するx
+     */
+    public boolean collideWith(Shot shot) {
+        // エイリアンの矩形を求める
+        Rectangle rectAlien = new Rectangle(x, y, width, height);
+        // 弾の矩形を求める
+        Point pos = shot.getPos();
+        Rectangle rectShot = new Rectangle(pos.x, pos.y, 
+                shot.getWidth(), shot.getHeight());
+
+        // 矩形同士が重なっているか調べる
+        // 重なっていたら衝突している
+        return rectAlien.intersects(rectShot);
+    }
+    public boolean collideWithCS(CSstar csstar) {
+        // エイリアンの矩形を求める
+        Rectangle rectAlien = new Rectangle(x, y, width, height);
+        // 弾の矩形を求める
+        Point pos = csstar.getPos();
+        Rectangle rectShot = new Rectangle(pos.x, pos.y, 
+                csstar.getWidth(), csstar.getHeight());
+
+        // 矩形同士が重なっているか調べる
+        // 重なっていたら衝突している
+        return rectAlien.intersects(rectShot);
+    }
+
+    /**
+     * エイリアンが死ぬ、墓へ移動
+     *  
+     */
+    public void die() {
+        setPos(TOMB.x, TOMB.y);
+        isAlive = false;
+    }
+
+    /**
+     * エイリアンの幅を返す
+     * 
+     * @param width エイリアンの幅
+     */
+    public int getWidth() {
+        return width;
+    }
+
+    /**
+     * エイリアンの高さを返す
+     * 
+     * @return height エイリアンの高さ
+     */
+    public int getHeight() {
+        return height;
+    }
+
+    /**
+     * エイリアンの位置を返す
+     * 
+     * @return エイリアンの位置座標
+     */
+    public Point getPos() {
+        return new Point(x, y);
+    }
+
+    /**
+     * エイリアンの位置を(x,y)にセットする
+     * 
+     * @param x 移動先のx座標
+     * @param y 移動先のy座標
+     */
+    public void setPos(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+    public Point getPosInMap() {
+	int i,j;
+	for(i=0; i<MainPanel.ROW; i++){
+	    for(j=0; j<MainPanel.COL; j++){
+		if(MainPanel.map[i][j]==0)
+		    if(  ( j*MainPanel.CS)-width<x&&x< ( (j+1)*MainPanel.CS) )
+			if(  ( i*MainPanel.CS)-height<y&&y<  ( (i+1)*MainPanel.CS) )
+			     return new Point(i,j);
+
+	    }
+	}
+	return new Point(0,0);
+    }
+    public boolean isHitInMap(Point point) {
+	int i,j;
+	for(i=0; i<MainPanel.ROW; i++){
+	    for(j=0; j<MainPanel.COL; j++){
+		if(MainPanel.map[i][j]==1)
+		    if(  ( j*MainPanel.CS)-width<point.x&&point.x+width< ( (j+1)*MainPanel.CS) )
+			if(  ( i*MainPanel.CS)-height<point.y&&point.y<  ( (i+1)*MainPanel.CS) )
+			     return true;
+
+	    }
+	}
+	return false;
+    }
+    /**
+     * エイリアンが生きているか
+     * 
+     * @return 生きていたらtrueを返す
+     */
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    /**
+     * エイリアンを描画する
+     * 
+     * @param g 描画オブジェクト
+     */
+    public void draw(Graphics g) {
+        g.drawImage(image, x, y, null);
+    }
+
+    /**
+     * イメージをロードする
+     *  
+     */
+    private void loadImage() {
+        // エイリアンのイメージを読み込む
+        // ImageIconを使うとMediaTrackerを使わなくてすむ
+        ImageIcon icon = new ImageIcon(getClass()
+                .getResource("image/alien.gif"));
+        image = icon.getImage();
+
+        // 幅と高さをセット
+        width = image.getWidth(panel);
+        height = image.getHeight(panel);
+    }
+}

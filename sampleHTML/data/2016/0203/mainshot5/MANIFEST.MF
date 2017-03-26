@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Sealed: true
+Created-By: 1.6.0_33 (Apple Inc.)
+Main-Class: Battle
+

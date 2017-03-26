@@ -1,0 +1,45 @@
+Please click.
+
+Text adventure game.
+This is an experiment.
+
+>bg bg1.jpg
+
+Draws the background.
+
+Reads the text,
+To interpret and execute that string.
+
+>image chara1.png
+
+Hello!
+
+Draws the character.
+
+If you add features (flags, go label, sound ..),
+you can create a simple adventure game.
+
+This program is about 100 lines.
+
+>image chara2.png
+
+enjoy.
+
+>image
+>bg
+
+THE END.
+
+>bg bg2.jpg
+>image chara1.png
+
+Photo Model: Sara Yamaguchi
+http://www.ashinari.com/model/profile/yamaguchisara.php
+
+>image chara2.png
+
+Photo Model: Kenji Iida
+http://www.ashinari.com/model/profile/iidakenji.php
+
+>image
+

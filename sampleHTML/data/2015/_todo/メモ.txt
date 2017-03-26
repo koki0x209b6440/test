@@ -1,0 +1,16 @@
+
+
+エフェクト(8)　トゥーンレンダリン　[http://asura.iaigiri.com/OpenGL/gl25.html]
+
+バネのシミュレーション　[http://asura.iaigiri.com/OpenGL/gl8.html]
+
+布のシミュレーション　[http://asura.iaigiri.com/OpenGL/gl9.html]
+
+ワンダと巨像グラフィックス講座　[http://game.watch.impress.co.jp/docs/20051207/3dwa.htm]
+
+毛皮　[http://asura.iaigiri.com/OpenGL/gl48.html]
+
+トゥーンレンダリング？　processing　[http://cafe.eyln.com/cgi-bin/wiki/wiki.cgi?page=Processing%A4%C7%CD%B7%A4%DC%A4%A6#p21]
+
+※pdfも一応、pdfolderに、残しておいた
+

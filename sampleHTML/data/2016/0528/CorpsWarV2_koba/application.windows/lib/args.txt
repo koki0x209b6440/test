@@ -1,0 +1,3 @@
+
+CorpsWarV2_koba
+CorpsWarV2_koba.jar,core.jar
